@@ -39,6 +39,7 @@
     <Compile Include="TimeTable.cs" />
     <Compile Include="Block.cs" />
     <Compile Include="Comparer.cs" />
+    <Compile Include="TextFileCreator.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
