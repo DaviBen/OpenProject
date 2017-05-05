@@ -14,36 +14,55 @@ namespace OpenProject
 	{
 		public Mode _currentMode = Mode.Day;
 
-		int time = 0;
+		DateTime time = new DateTime(0);
+		//TimeSpan ts = new TimeSpan(13, 00, 00);
 
-		public void Create(string filename)
+		private void Create(string filename)
 		{
 			StreamWriter writer = new StreamWriter(filename);
-			for (int i = 0; i < 16; i++)
+			try
 			{
-				string str = string.Format("{0} {1}", time.ToString("D4"), Availability.No);
-				writer.WriteLine(str);
-				time = time + 30;
-				if (time == 2400)
-					time = 0;
+				writer.WriteLine("-------Mo-Tu-We-Th-Fr-Sa-Su;");
+				for (int i = 0; i <= 16; i++)
+				{
+					string str = string.Format("{0}--{1} -{1} -{1} -{1} -{1} -{1} -{1} ;", time.ToString("HH:mm")
+					                           , Availability.N.ToString());
+					writer.WriteLine(str);
+					time = time + TimeSpan.FromMinutes(30);
+				}
+			}
+			finally
+			{
+				writer.Close();
 			}
 		}
 
-		//if (_currentMode == Mode.Day)
-		//{
-		//					time = 1300;
-		//		Create("day.txt");
-		//	break;
-		//		case "EarlyBird":
-		//		time = 500;
-		//		Create("earlybird.txt");
-		//	break;
-		//		case "NightOwl":
-		//		time = 2100:
-		//		Create("nightowl.txt");
-		//	break;
-		//}
-		//}
+		public void Setup()
+		{
+			//switch(m)
+			//{
+			//	case (Mode.Day):
+			time = time + new TimeSpan(13, 00, 00);
+			Create("day.txt");
+			time = new DateTime(0);
+			time = time + new TimeSpan(09, 00, 00);
+			Create("work.txt");
+				//	break;
+				//case (Mode.EarlyBird):
+			time = new DateTime(0);
+			time = time + new TimeSpan(05, 00, 00);
+			Create("earlybird.txt");
+				//	break;
+				//case (Mode.NightOwl):
+			time = new DateTime(0);
+			time = time + new TimeSpan(21, 00, 00);
+			Create("nightowl.txt");
+				//break;
+			//}
+		}
+
+
+
 
 
 		public TextFileCreator()

@@ -3,8 +3,8 @@ namespace OpenProject
 {
 	public enum Availability
 	{
-		No,
-		Yes,
-		Maybe
+		N,
+		Y,
+		M
 	}
 }
