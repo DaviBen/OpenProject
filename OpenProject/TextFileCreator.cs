@@ -8,6 +8,7 @@ namespace OpenProject
 		Day,
 		EarlyBird,
 		NightOwl,
+		Business
 	}
 
 	public class TextFileCreator
@@ -23,7 +24,7 @@ namespace OpenProject
 			try
 			{
 				writer.WriteLine("-------Mo-Tu-We-Th-Fr-Sa-Su;");
-				for (int i = 0; i <= 16; i++)
+				for (int i = 0; i < 16; i++)
 				{
 					string str = string.Format("{0}--{1} -{1} -{1} -{1} -{1} -{1} -{1} ;", time.ToString("HH:mm")
 					                           , Availability.N.ToString());
@@ -42,6 +43,8 @@ namespace OpenProject
 			//switch(m)
 			//{
 			//	case (Mode.Day):
+			time = new DateTime(0);
+			Create("Allday.txt");
 			time = time + new TimeSpan(13, 00, 00);
 			Create("day.txt");
 			time = new DateTime(0);

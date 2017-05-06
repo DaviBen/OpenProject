@@ -14,6 +14,9 @@ namespace OpenProject
 			Loader timetableLoader = new Loader();
 			string timetableName;
 			List<TimeTable> providedTimetables = new List<TimeTable>();
+			TextFileCreator setup = new TextFileCreator();
+
+			setup.Setup();
 
 			string print = "first";
 			for (int i = 0; i < 2; i++)
@@ -42,11 +45,10 @@ namespace OpenProject
 			Comparer compareTimetables = new Comparer(providedTimetables);
 			compareTimetables.Compare();
 
+			Console.ReadLine();
 
 
-
-
-
+		
 		}
 	}
 }
