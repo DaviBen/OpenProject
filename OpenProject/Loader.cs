@@ -47,11 +47,12 @@ namespace OpenProject
 		private void Deformat()
 		{
 			//unneccessary chars to be removed from file
-			char[] delimiterChars = { ' ', '-', ';' };
+			string[] delimiterString = { " ", "-", ";",
+				"Mo", "Tu", "We", "Th", "Fr", "Sa", "Su" };
 			foreach (string s in _content)
 			{
-				string[] lines = s.Split(delimiterChars, StringSplitOptions.RemoveEmptyEntries);
-				//creates a new array of strings where [0] = time, [1] = availability for monday
+				string[] lines = s.Split(delimiterString, StringSplitOptions.RemoveEmptyEntries);
+				//creates a new array of strings where [0] = time, [1] = availability for monday etc
 				//can be changed to strings if desired. "NNNNN" would be a time that is unavailable for all days
 				_lines.Add(lines);
 			}
@@ -68,7 +69,6 @@ namespace OpenProject
 					{
 						for (int j = 0; i < stringArray.Length - 1; j++)
 						{
-						//FIXME: the error is showing here.
 							_times.ChangeBlock(i, j, (Availability)Enum.Parse(typeof(Availability), stringArray[j + 1]));
 						}
 					}

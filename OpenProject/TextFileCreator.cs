@@ -11,6 +11,9 @@ namespace OpenProject
 		Business
 	}
 
+	//This class creates a text file for the planned mode switch 
+	//where files are split into 8 hours for easier input
+	//still very much incomplete
 	public class TextFileCreator
 	{
 		public Mode _currentMode = Mode.Day;
@@ -24,7 +27,7 @@ namespace OpenProject
 			try
 			{
 				writer.WriteLine("-------Mo-Tu-We-Th-Fr-Sa-Su;");
-				for (int i = 0; i < 16; i++)
+				for (int i = 0; i < 16 ; i++)
 				{
 					string str = string.Format("{0}--{1} -{1} -{1} -{1} -{1} -{1} -{1} ;", time.ToString("HH:mm")
 					                           , Availability.N.ToString());
