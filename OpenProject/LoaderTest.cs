@@ -21,7 +21,6 @@ namespace OpenProject
 			string[] lines = str.Split(delimiterChars, StringSplitOptions.RemoveEmptyEntries);
 
 			StringAssert.AreEqualIgnoringCase("03:00NNNNNYN", string.Join("", lines));
-
 		}
 
 		[Test()]

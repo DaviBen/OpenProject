@@ -8,8 +8,9 @@ namespace OpenProject
 	{
 		List<string> _content;
 		List<string[]> _lines;
-		private TimeTable _times = new TimeTable();
+		private TimeTable _times;
 
+		//Returns the finished TimeTable from filename
 		public TimeTable GetTimeTable(string filename)
 		{
 			Read(filename);
@@ -19,6 +20,7 @@ namespace OpenProject
 
 		}
 
+		//Reads in the file from the filename
 		private void Read(string filename)
 		{
 			try
@@ -41,16 +43,21 @@ namespace OpenProject
 			}
 		}
 
+		//Deformats the input from the file to something readable by the program
 		private void Deformat()
 		{
+			//unneccessary chars to be removed from file
 			char[] delimiterChars = { ' ', '-', ';' };
 			foreach (string s in _content)
 			{
 				string[] lines = s.Split(delimiterChars, StringSplitOptions.RemoveEmptyEntries);
+				//creates a new array of strings where [0] = time, [1] = availability for monday
+				//can be changed to strings if desired. "NNNNN" would be a time that is unavailable for all days
 				_lines.Add(lines);
 			}
 		}
 
+		//Allocates all data into a TimeTable format
 		private void LoadTimeTable()
 		{
 			//try
@@ -61,6 +68,7 @@ namespace OpenProject
 					{
 						for (int j = 0; i < stringArray.Length - 1; j++)
 						{
+						//FIXME: the error is showing here.
 							_times.ChangeBlock(i, j, (Availability)Enum.Parse(typeof(Availability), stringArray[j + 1]));
 						}
 					}
@@ -79,6 +87,7 @@ namespace OpenProject
 		{
 			_content = new List<string>();
 			_lines = new List<string[]>();
+			_times = new TimeTable();
 		}
 	}
 }

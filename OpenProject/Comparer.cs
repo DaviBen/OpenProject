@@ -7,6 +7,7 @@ namespace OpenProject
 	{
 		List<TimeTable> _timetables;
 
+		//Compares all timetables and output the times that match
 		public string Compare()
 		{
 			string str = null;
@@ -16,6 +17,7 @@ namespace OpenProject
 				{
 					if (_timetables[i].CheckBlock(i,j) == _timetables[j+1].CheckBlock(i,j))
 					{
+						//FIXME: this will be incorrect if comparing 3 files
 						str = str + string.Format("{0},{1} - {2}", i, j, _timetables[i].CheckBlock(i, j).ToString());
 					}
 				}
