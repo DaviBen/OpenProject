@@ -7,7 +7,6 @@ namespace OpenProject
 	public class Loader
 	{
 		List<string> _content;
-		List<string[]> _lines;
 		private TimeTable _times;
 
 		//Returns the finished TimeTable from filename
@@ -25,7 +24,7 @@ namespace OpenProject
 		{
 			try
 			{
-				using (StreamReader sr = File.OpenText(filename))
+				using (StreamReader sr = new StreamReader(filename))
 				{
 					string line;
 					while ((line = sr.ReadLine()) != null)
@@ -39,54 +38,56 @@ namespace OpenProject
 				Console.WriteLine("-------------------------------------");
 				Console.WriteLine("The program cannot find the text file");
 				Console.WriteLine("-------------------------------------");
-				System.Environment.Exit(0);
 			}
 		}
 
 		//Deformats the input from the file to something readable by the program
 		private void Deformat()
 		{
+			List<string> _lines = new List<string>();
 			//unneccessary chars to be removed from file
 			string[] delimiterString = { " ", "-", ";",
-				"Mo", "Tu", "We", "Th", "Fr", "Sa", "Su" };
+				"Mo", "Tu", "We", "Th", "Fr", "Sa", "Su",
+				"0", "1", "2","3","4","5","6","7","8","9",":"};
 			foreach (string s in _content)
 			{
 				string[] lines = s.Split(delimiterString, StringSplitOptions.RemoveEmptyEntries);
-				//creates a new array of strings where [0] = time, [1] = availability for monday etc
-				//can be changed to strings if desired. "NNNNN" would be a time that is unavailable for all days
-				_lines.Add(lines);
+				string linesStr = string.Join("", lines);
+				linesStr = linesStr.ToUpper();
+				_lines.Add(linesStr);
 			}
+			_content.Clear();
+			_content.AddRange(_lines);
+			_content.RemoveAll(string.IsNullOrEmpty);
 		}
 
 		//Allocates all data into a TimeTable format
 		private void LoadTimeTable()
 		{
-			//try
-			//{
-				foreach (string[] stringArray in _lines)
+			try
+			{
+				for (int i = 0; i < _content.Count; i++)
 				{
-					for (int i = 0; i < stringArray.Length; i++)
+					for (int j = 0; j < _content[1].Length; j++)
 					{
-						for (int j = 0; i < stringArray.Length - 1; j++)
-						{
-							_times.ChangeBlock(i, j, (Availability)Enum.Parse(typeof(Availability), stringArray[j + 1]));
-						}
+						_times.ChangeBlock(i, j, 
+						                   (Availability)Enum.Parse(typeof(Availability), _content[i][j].ToString()));
 					}
 				}
-			//}
-			//catch
-			//{
-			//	Console.WriteLine("-----------------------------------");
-			//	Console.WriteLine("The file is not formatted correctly");
-			//	Console.WriteLine("-----------------------------------");
-			//}
+			}
+			catch
+			{
+				Console.WriteLine("-----------------------------------");
+				Console.WriteLine("The file is not formatted correctly");
+				Console.WriteLine("-----------------------------------");
+				System.Environment.Exit(0);
+			}
 		}
 
 
 		public Loader()
 		{
 			_content = new List<string>();
-			_lines = new List<string[]>();
 			_times = new TimeTable();
 		}
 	}
