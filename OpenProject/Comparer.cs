@@ -45,7 +45,7 @@ namespace OpenProject
 								int[] intArray = new int[3];
 								intArray[0] = i;
 								intArray[1] = j;
-								intArray[2] = (int)_timetables[i].CheckBlock(i, j);
+								intArray[2] = (int)_timetables[k].CheckBlock(i, j);
 								_maybe.Add(intArray);
 							}
 						}
