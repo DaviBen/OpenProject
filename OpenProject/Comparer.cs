@@ -63,6 +63,7 @@ namespace OpenProject
 		//Format data to a readable format for the user.
 		private string Format(List<int[]> intArrays)
 		{
+			_compare.Clear();
 			foreach (int[] intArray in intArrays)
 			{
 				string str;
