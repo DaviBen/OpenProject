@@ -9,14 +9,16 @@ namespace OpenProject
 		List<string> _content;
 		private TimeTable _times;
 
+
+
 		//Returns the finished TimeTable from filename
 		public TimeTable GetTimeTable(string filename)
 		{
+			_content.Clear();
 			Read(filename);
 			Deformat();
 			LoadTimeTable();
 			return _times;
-
 		}
 
 		//Reads in the file from the filename
@@ -38,6 +40,7 @@ namespace OpenProject
 				Console.WriteLine("-------------------------------------");
 				Console.WriteLine("The program cannot find the text file");
 				Console.WriteLine("-------------------------------------");
+				System.Environment.Exit(0);
 			}
 		}
 

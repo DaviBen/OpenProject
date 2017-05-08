@@ -40,8 +40,7 @@ namespace OpenProject
 
 			//Compare all the provided timetables
 			Comparer compareTimetables = new Comparer(providedTimetables);
-			compareTimetables.Compare();
-
+			Console.WriteLine(compareTimetables.Compare());
 			Console.ReadLine();
 
 
